@@ -4,6 +4,7 @@
 
 ### Unreleased
 
+- Etherscan `ResponseData.result` is now an `Option` type, correctly handling cases where the result is `null` [#TODO](https://github.com/gakonst/ethers-rs/pull/TODO)
 - Add support for Geth `debug_traceTransaction` [#1469](https://github.com/gakonst/ethers-rs/pull/1469)
 - Use correct, new transaction type for `typool_content` RPC endpoint [#1501](https://github.com/gakonst/ethers-rs/pull/1501)
 - Fix the default config for generated `BuildInfo` [#1458](https://github.com/gakonst/ethers-rs/pull/1458)

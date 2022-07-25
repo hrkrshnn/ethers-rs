@@ -175,10 +175,15 @@ impl Client {
 
         match res {
             ResponseData::Error { result, .. } => {
-                if result.starts_with("Max rate limit reached") {
-                    Err(EtherscanError::RateLimitExceeded)
-                } else {
-                    Err(EtherscanError::Unknown(result))
+                if let Some(result) = result {
+                    if result.starts_with("Max rate limit reached") {
+                        Err(EtherscanError::RateLimitExceeded)
+                    } else {
+                        Err(EtherscanError::Unknown(result))
+                    }
+                }
+                else {
+                    Err(EtherscanError::Unknown("Null".to_string()))
                 }
             }
             ResponseData::Success(res) => Ok(res),
@@ -461,7 +466,7 @@ pub struct Response<T> {
 #[serde(untagged)]
 pub enum ResponseData<T> {
     Success(Response<T>),
-    Error { status: String, message: String, result: String },
+    Error { status: String, message: String, result: Option<String> },
 }
 
 /// The type that gets serialized as query
